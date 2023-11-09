@@ -23,7 +23,8 @@ public class Bullet extends Sprite implements Runnable, Drawable{
         super(x, y, WIDTH, HEIGHT);
     }
     
-
+    //git
+   
     @Override
     public void draw(Graphics g) {
         if(image != null){
