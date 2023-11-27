@@ -6,9 +6,15 @@
 package models;
 
 import elements.Space;
+import elements.SpaceCraft;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,9 +32,32 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Drawable{
     }
     
     public void paint(Graphics g){
-        space.draw(g);
+        Dimension d = getSize();
+        Image imagen = createImage(d.width, d.height);
+        Graphics buff = imagen.getGraphics();
+        
+        space.draw(buff);
+        
+        g.drawImage(imagen, 0, 0, null);
     }
-
+    
+    public void update(Graphics g){
+        paint(g);
+    }
+    
+    
+    public void start(){
+        space.reStart();
+        boolean result = space.start();
+        if(result == true){
+            int aux = JOptionPane.showConfirmDialog(this, "Quieres volver a empezar?", "Game Over", JOptionPane.YES_NO_OPTION);
+            if(aux == 0){
+                start();
+            }else{
+                System.exit(0);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,18 +101,21 @@ public class VentanaPrincipal extends javax.swing.JFrame implements Drawable{
      * @param args the command line arguments
      */
     public static void main(String args[]){
-        Space space = new Space(1000,800);
+        Space space = new Space(900,900);
         VentanaPrincipal ventana = new VentanaPrincipal(space);
         space.setDrawable(ventana);
-        ventana.setSize(1000,800);
+        ventana.setSize(900,900);
         ventana.setVisible(true);
+        ventana.start();
     }
+
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
 
     @Override
     public void redraw() {
         repaint();
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
 }

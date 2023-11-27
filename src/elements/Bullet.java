@@ -6,47 +6,39 @@
 package elements;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import models.Drawable;
 
 /**
  *
  * @author juancamposbetancourth
  */
-public class Bullet extends Sprite implements Runnable, Drawable{
-    private Image image = loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/Asunto.png");
+public abstract class Bullet extends Sprite implements Runnable, Drawable{
+    ///Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/Asunto.png
     public static final int WIDTH = 7;
     public static final int HEIGHT = 32;
-    private Drawable drawable;
+    public static final int STEEP = 40;
+    protected Drawable drawable;
     
     public Bullet(int x, int y) {
         super(x, y, WIDTH, HEIGHT);
     }
     
-    //hello
+    //hello 
    
     @Override
-    public void draw(Graphics g) {
-        if(image != null){
-            g.drawImage(image, getX(), getY(), null);
-        }    
-    }
+    public abstract void draw(Graphics g);
 
     @Override
-    public void run() {
-        Thread bulletThread = new BulletThread(this);
-        bulletThread.start();
-    }
-
-    @Override
-    public void redraw() {
-        drawable.redraw();
-    } 
-
+    public abstract void run();
     /**
      * @param drawable the drawable to set
      */
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
+    }
+    
+    @Override
+    public void redraw() {
+        drawable.redraw();
     }
 }

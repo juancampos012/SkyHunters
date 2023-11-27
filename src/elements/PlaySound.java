@@ -9,6 +9,6 @@ package elements;
  *
  * @author juancamposbetancourth
  */
-public class Ability {
+public class PlaySound {
     
 }

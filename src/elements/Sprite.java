@@ -16,11 +16,25 @@ import javax.imageio.ImageIO;
  * @author juancamposbetancourth
  */
 public abstract class Sprite {
-    protected int x;
-    protected int y;
-    protected int width;
-    protected int height;
-    protected Image image;
+
+    /**
+     * @return the image
+     */
+    public Image getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(Image image) {
+        this.image = image;
+    }
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private Image image;
 
     public Sprite(int x, int y, int width, int height) {
         this.x = x;
