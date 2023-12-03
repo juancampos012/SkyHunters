@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package elements;
 
 import java.awt.Graphics;
@@ -20,11 +15,6 @@ public class BadSpaceCraft1 extends BadSpaceCraft implements Drawable{
         super(x, y);
         image = loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/craft1.png");
         setNumberLives(1);
-    }
-    
-    @Override
-    public void deleteBullet(Bullet bullet){
-        getBullets().remove(bullet);
     }
 
     @Override

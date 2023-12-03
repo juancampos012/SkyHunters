@@ -1,34 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package elements;
 
 import java.awt.Graphics;
 
 /**
- *
+ * Representa un poder "bueno" en el juego, el cual, al colisionar con el avión "bueno" le aumenta una vida.
+ * 
  * @author juancamposbetancourth
+ * @version 27112023
  */
-public class GoodPower extends Power{
+public class GoodPower extends Power {
 
+    /**
+     * Constructor de la clase GoodPower.
+     * 
+     * @param x La coordenada x inicial del poder "bueno".
+     */
     public GoodPower(int x) {
         super(x);
         setImage(loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/GoodPower.jpeg"));
     }
-    
 
+    /**
+     * Dibuja el poder "bueno" en el contexto gráfico especificado.
+     * 
+     * @param g El contexto gráfico en el que se dibuja el poder "bueno".
+     */
     @Override
     public void draw(Graphics g) {
-        if(getImage() != null){
+        if (getImage() != null) {
             g.drawImage(getImage(), getX(), getY(), null);
-        }  
+        }
     }
 
+    /**
+     * Redibuja el poder "bueno" llamando al método redraw del objeto drawable asociado.
+     */
     @Override
     public void redraw() {
         getDrawable().redraw();
     }
-    
 }

@@ -1,100 +1,144 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package elements;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import models.Drawable;
 
 /**
- *
+ * Representa una nave espacial controlada por el jugador en el juego, incluye funcionalidades para el movimiento,
+ * disparo y manejo de vidas de la nave espacial del jugador.
+ * 
  * @author juancamposbetancourth
+ * @version 27112023
  */
-public class GoodSpaceCraft extends SpaceCraft implements Drawable{
-    public static final int WIDTH = 100;
-    public static final int HEIGHT = 130;
-    public static final int STEP = 40;
-    private LinkedList<Live> lives;
-    private int auxX = 10;
-    private Image image;
+public class GoodSpaceCraft extends SpaceCraft implements Drawable {
     
+    /**
+     * Paso de movimiento de la nave espacial del jugador.
+     */
+    public static final int STEP = 40;
+    
+    /**
+     * Lista de vidas asociadas a la nave espacial del jugador.
+     */
+    private LinkedList<Live> lives;
+    
+    /**
+     * Posición auxiliar X utilizada para posicionar las vidas.
+     */
+    private int auxX = 10;
+    private PlayerSound bulletSound;
+    private PlayerSound goodLiveSound;
+    private PlayerSound badLiveSound;
+    
+    /**
+     * Constructor de la clase GoodSpaceCraft.
+     * Inicializa la posición, tamaño, imagen, vidas y número de vidas iniciales de la nave espacial del jugador.
+     * 
+     * @param x La coordenada x inicial de la nave.
+     * @param y La coordenada y inicial de la nave.
+     */
     public GoodSpaceCraft(int x, int y) {
         super(x, y);
-        image = loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/craft.png");
+        setImage(loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/craft.png"));
         this.lives = new LinkedList<>();
         setNumberLives(4);
         createLive(getNumberLives());
+        this.bulletSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/bullet.wav");
+        this.goodLiveSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/goofLive.wav");
+        this.badLiveSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/badLive.wav");
     }
     
-    public void createLive(int num){
+    /**
+     * Crea vidas asociadas a la nave espacial del jugador.
+     * 
+     * @param num El número de vidas a crear.
+     */
+    public void createLive(int num) {
         Live live;
-        for(int i = 0; i < num; i++){
+        for (int i = 0; i < num; i++) {
             live = new Live(this.auxX, 40);
             this.auxX = this.auxX + 50;
             lives.add(live);
         }
     }
     
-    public void addLive(){
-        Live live;
-        live = new Live(this.auxX, 40);
+    /**
+     * Agrega una vida a la nave espacial del jugador.
+     */
+    public void addLive() {
+        new Thread(() -> {
+            ((PlayerSoundSecond)goodLiveSound).start();
+        }).start();
+        Live live = new Live(this.auxX, 40);
         this.auxX = this.auxX + 50;
         lives.add(live);
-        setNumberLives(getNumberLives()+1);
+        setNumberLives(getNumberLives() + 1);
     }
     
-    public void deleteLive(){
-        Live live = null;
-        for(Live actual: this.lives){
-            live = actual;
-        }
+    /**
+     * Elimina una vida de la nave espacial del jugador.
+     */
+    public void deleteLive() {
+        new Thread(() -> {
+            ((PlayerSoundSecond)badLiveSound).start();
+        }).start();
+        Live live = lives.pollLast();
         this.auxX -= 50;
         setNumberLives(getNumberLives() - 1);
-        lives.remove(live);
     }
     
-    public void handleKey(int key){
-        if(key == KeyEvent.VK_UP |
-           key == KeyEvent.VK_DOWN |
-           key == KeyEvent.VK_LEFT |
-           key == KeyEvent.VK_RIGHT){
+    /**
+     * Maneja las teclas presionadas por el jugador.
+     * 
+     * @param key El código de la tecla presionada.
+     */
+    public void handleKey(int key) {
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
             move(key);
             getDrawable().redraw();
-        }if(key == KeyEvent.VK_S){
+        }
+        if (key == KeyEvent.VK_S) {
             shoot();
         }
-        
     }
     
+    /**
+     * Realiza el disparo desde la nave espacial del jugador.
+     */
     @Override
-    public void shoot(){
-        Bullet bullet = new GoodBullet(getX()+47, getY()-20);
+    public void shoot() {
+        new Thread(() -> {
+            ((PlayerSoundSecond)bulletSound).start();
+        }).start();
+        Bullet bullet = new GoodBullet(getX() + 47, getY() - 20);
         bullet.setDrawable(this);
         getBullets().add(bullet);
         Thread actual = new Thread(bullet);
         actual.start();
     }
     
-    public boolean move(int key){
+    /**
+     * Realiza el movimiento de la nave espacial del jugador.
+     * 
+     * @param key El código de la tecla presionada que indica la dirección del movimiento.
+     * @return true si el movimiento es válido, false si no es válido.
+     */
+    public boolean move(int key) {
         int xOriginal = getX();
         int yOriginal = getY();
         
-        if(key == KeyEvent.VK_UP)
+        if (key == KeyEvent.VK_UP)
             setY(getY() - STEP);
-        if(key == KeyEvent.VK_DOWN)
+        if (key == KeyEvent.VK_DOWN)
             setY(getY() + STEP);
-        if(key == KeyEvent.VK_LEFT)
+        if (key == KeyEvent.VK_LEFT)
             setX(getX() - STEP);
-        if(key == KeyEvent.VK_RIGHT)
+        if (key == KeyEvent.VK_RIGHT)
             setX(getX() + STEP);
 
-        if(!boundable.isValid(this))
-        {
+        if (!boundable.isValid(this)) {
             this.setX(xOriginal);
             this.setY(yOriginal);
             
@@ -104,26 +148,33 @@ public class GoodSpaceCraft extends SpaceCraft implements Drawable{
         return true;
     }
 
+    /**
+     * Dibuja la nave espacial del jugador, sus balas y vidas en el contexto gráfico especificado.
+     * 
+     * @param g El contexto gráfico en el que se dibuja la nave espacial del jugador.
+     */
     @Override
     public void draw(Graphics g) {
-        if(image != null){
-            g.drawImage(image, getX(), getY(), null);
+        if (getImage() != null) {
+            g.drawImage(getImage(), getX(), getY(), null);
         }
-        for(int i = 0; i < getBullets().size(); i++){
-            if(getBullets().get(i).getY() < 0){
+        for (int i = 0; i < getBullets().size(); i++) {
+            if (getBullets().get(i).getY() < 0) {
                 getBullets().remove(getBullets().get(i));
-            }else{
+            } else {
                 getBullets().get(i).draw(g);
             }
         }
-        for(Live actual: lives){
+        for (Live actual : lives) {
             actual.draw(g);
         }
     }
     
+    /**
+     * Redibuja la nave espacial del jugador llamando al método redraw del objeto drawable asociado.
+     */
     @Override
     public void redraw() {
         getDrawable().redraw();
     }
- 
 }
