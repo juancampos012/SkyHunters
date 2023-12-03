@@ -17,7 +17,7 @@ public class GoodPower extends Power {
      */
     public GoodPower(int x) {
         super(x);
-        setImage(loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/GoodPower.jpeg"));
+        setImage(loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/goodPower.png"));
     }
 
     /**

@@ -46,12 +46,14 @@ public class Juego extends javax.swing.JFrame implements Drawable{
     
     public void start(){
         getSpace().reStart();
-        boolean result = getSpace().start();
-        if(result == true){
+        new Thread(() -> {
+            boolean result = getSpace().start();
+            if(result == true){
             GameOver gameOver = new GameOver();
             gameOver.setVisible(true);
             this.dispose();
         }
+        }).start();
     }
     
     @Override
@@ -97,12 +99,8 @@ public class Juego extends javax.swing.JFrame implements Drawable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        try {
-            // TODO add your handling code here:
-            getSpace().handleKey(evt.getKeyCode());
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        getSpace().handleKey(evt.getKeyCode());
     }//GEN-LAST:event_formKeyPressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

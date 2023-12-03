@@ -101,6 +101,11 @@ public class Space extends Sprite implements Boundable, Drawable{
      * Sonido de fin de juego
      */
     private PlayerSound gameOverSound;
+    
+    /**
+     * Sonido de eliminacion de una nave espacial
+     */
+    private PlayerSound deleteSpaceCraftSound;
 
     /**
     * Constructor para la clase Space.
@@ -121,6 +126,7 @@ public class Space extends Sprite implements Boundable, Drawable{
         this.score = new ScorePainter();
         this.principalPlayer = new PlayerSoundPrincipal("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/space.wav");
         this.gameOverSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/gameOver.wav");
+        this.deleteSpaceCraftSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/spaceCraft.wav");
     }
     
     /**
@@ -175,66 +181,69 @@ public class Space extends Sprite implements Boundable, Drawable{
         boolean result;
         boolean result1;
         boolean result2;
-        if(!SpaceCrafts.isEmpty()){
-            Thread principalSound = new Thread((Runnable) principalPlayer);
-            principalSound.start();
-            while(!SpaceCrafts.isEmpty()){
-                try{
-                    if(SpaceCrafts.size() >=1){
-                        Thread.sleep(175);
-                        checkCollisionGood();
-                        result2 = checkCollisionPower();
-                        result1 = checkCollisionMeteorite();
-                        result = checkCollisionBad();
-                        if(result == true || result1 == true || result2 == true){
-                            SpaceCrafts.clear();
-                            powers.clear();
-                            meteorites.clear();
-                            principalPlayer.stopSound();
-                            new Thread(() -> {
-                                ((PlayerSoundSecond)gameOverSound).start();
-                            }).start();
-                            return true;
-                        }
+        Thread principalSound = new Thread((Runnable) principalPlayer);
+        principalSound.start();
+        while(!SpaceCrafts.isEmpty()){
+            try{
+                if(SpaceCrafts.size() >=1){
+                    Thread.sleep(175);
+                    checkCollisionGood();
+                    result2 = checkCollisionPower();
+                    result1 = checkCollisionMeteorite();
+                    result = checkCollisionBad();
+                    if(result == true || result1 == true || result2 == true){
+                        SpaceCrafts.clear();
+                        powers.clear();
+                        meteorites.clear();
+                        principalPlayer.stopSound();
+                        new Thread(() -> {
+                            ((PlayerSoundSecond)gameOverSound).start();
+                        }).start();
+                        return true;
                     }
-                    long tiempoActual = System.currentTimeMillis();
-                    if (tiempoActual - ultimoTiempoCreacion >= CRAFT_CREATION_TIME) {
-                        if(SpaceCrafts.size() < numerSpaceCrafts){
-                            // Crear un nuevo avión
-                            if(score.getScore() < 500){
-                                int type = (int) ((Math.random() * 4) + 1);
-                                createSpaceCraft(type);
-                                numerSpaceCrafts = 3;
-                            }else if(score.getScore() >= 500 && score.getScore() < 1000){
-                                int type = (int) ((Math.random() * (4 - 2)) + 2);
-                                createSpaceCraft(type);
-                                createSpaceCraft(type);
-                                numerSpaceCrafts = 4;
-                            }else if(score.getScore() >= 1000){
-                                createSpaceCraft(4);
-                                createSpaceCraft(4);
-                                numerSpaceCrafts = 5;
-                            }
-                            ultimoTiempoCreacion = tiempoActual;
-                        }
-                    }if(tiempoActual - ultimoTiempoCreacionBullet >= BULLET_CREATION_TIME){
-                        try{
-                            for(SpaceCraft actual: SpaceCrafts){
-                                if(actual instanceof BadSpaceCraft){
-                                    actual.shoot();
-                                }
-                        }
-                        ultimoTiempoCreacionBullet = tiempoActual;
-                        }catch(ConcurrentModificationException e){
-                        }
-                    }if(tiempoActual - ultimoTiempoCreacionPower >= POWER_CREATION_TIME){
-                        int type = (int) ((Math.random() * 2) + 0);
-                        createPower(type);
-                        ultimoTiempoCreacionPower = tiempoActual;
-                    }
-                }catch(InterruptedException e){
-
                 }
+                long tiempoActual = System.currentTimeMillis();
+                if (tiempoActual - ultimoTiempoCreacion >= CRAFT_CREATION_TIME) {
+                    if(SpaceCrafts.size() < numerSpaceCrafts){
+                        // Crear un nuevo avión
+                        if(score.getScore() < 500){
+                            int type = (int) ((Math.random() * 4) + 1);
+                            createSpaceCraft(type);
+                            numerSpaceCrafts = 3;
+                        }else if(score.getScore() >= 500 && score.getScore() < 1000){
+                            int type = (int) ((Math.random() * (4 - 2)) + 2);
+                            createSpaceCraft(type);
+                            createSpaceCraft(type);
+                            numerSpaceCrafts = 4;
+                        }else if(score.getScore() >= 1000 && score.getScore() < 2000){
+                            createSpaceCraft(4);
+                            createSpaceCraft(4);
+                            numerSpaceCrafts = 5;
+                        }else if(score.getScore() >= 2000){
+                            createSpaceCraft(4);
+                            createSpaceCraft(4);
+                            createSpaceCraft(4);
+                            numerSpaceCrafts = 6;
+                        }
+                        ultimoTiempoCreacion = tiempoActual;
+                    }
+                }if(tiempoActual - ultimoTiempoCreacionBullet >= BULLET_CREATION_TIME){
+                    try{
+                        for(SpaceCraft actual: SpaceCrafts){
+                            if(actual instanceof BadSpaceCraft){
+                                actual.shoot();
+                            }
+                    }
+                    ultimoTiempoCreacionBullet = tiempoActual;
+                    }catch(ConcurrentModificationException e){
+                    }
+                }if(tiempoActual - ultimoTiempoCreacionPower >= POWER_CREATION_TIME){
+                    int type = (int) ((Math.random() * 2) + 0);
+                    createPower(type);
+                    ultimoTiempoCreacionPower = tiempoActual;
+                }
+            }catch(InterruptedException e){
+
             }
         }
         return false;
@@ -343,12 +352,15 @@ public class Space extends Sprite implements Boundable, Drawable{
             Thread actual = new Thread((Runnable) aux);
             actual.start();
             SpaceCrafts.set(index, aux);
-            score.setScore(20+score.getScore());
+            score.setScore(15+score.getScore());
             CRAFT_CREATION_TIME = CRAFT_CREATION_TIME - 10;
             BULLET_CREATION_TIME = BULLET_CREATION_TIME - 10;
         }else if(spaceCraft.getNumberLives() == 1 && spaceCraft instanceof BadSpaceCraft){
+            new Thread(() -> {
+                ((PlayerSoundSecond)deleteSpaceCraftSound).start();
+            }).start();
             SpaceCrafts.remove(spaceCraft);
-            score.setScore(20+score.getScore());
+            score.setScore(25+score.getScore());
             CRAFT_CREATION_TIME = CRAFT_CREATION_TIME - 30;
             BULLET_CREATION_TIME = BULLET_CREATION_TIME - 30;
         }else if(spaceCraft instanceof GoodSpaceCraft){

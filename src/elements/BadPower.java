@@ -17,7 +17,7 @@ public class BadPower extends Power {
      */
     public BadPower(int x) {
         super(x);
-        setImage(loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/BadPower.jpeg"));
+        setImage(loadImage("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/images/badPower.png"));
     }
 
     /**

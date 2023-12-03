@@ -5,18 +5,12 @@
             <url>src/elements/Space.java</url>
             <bookmark id="2">
                 <name/>
-                <line>142</line>
+                <line>148</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/elements/Space.java</file>
-            <file>file:/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/elements/PlayerSound.java</file>
-            <file>file:/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/elements/PlayerSoundPrincipal.java</file>
-            <file>file:/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/elements/PlayerSoundSecond.java</file>
-            <file>file:/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/elements/ReaderPositions.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
