@@ -8,8 +8,13 @@ import java.util.LinkedList;
 import models.Drawable;
 
 /**
+ * Clase principal del proyecto Skyhunters maneja la creacion de naves, el puntaje, los sonidos tiene un metodo principal que es el start
+ * de ahi se controlan todos las verificaciones del juego puntaje, vidad, perdida del juego y las coliciones de los objetos, tambien lee un
+ * archvo de texto y crea meteoritos segun su posicion en el archivo.
+ * 
  * @author juancamposbetancourth
- * La clase Space extiende Sprite e implementa las interfaces Boundable y Drawable.
+ * @author Sebastian Garcia
+ * @version 27112023
  */
 public class Space extends Sprite implements Boundable, Drawable{
 
@@ -40,7 +45,7 @@ public class Space extends Sprite implements Boundable, Drawable{
     /**
      * Lector de posiciones de los meteoritos
      */
-    private ReaderPositions reader;
+    private Reader reader;
 
     /**
      * Objeto drawable
@@ -102,6 +107,10 @@ public class Space extends Sprite implements Boundable, Drawable{
      */
     private PlayerSound gameOverSound;
     
+    private WriterScore writer;
+    
+    private Reader readerScore;
+    
     /**
      * Sonido de eliminacion de una nave espacial
      */
@@ -124,6 +133,8 @@ public class Space extends Sprite implements Boundable, Drawable{
         this.meteorites = new LinkedList<>(); 
         this.reader = new ReaderPositions();
         this.score = new ScorePainter();
+        this.readerScore = new ReaderScore();
+        this.writer = new WriterScore();
         this.principalPlayer = new PlayerSoundPrincipal("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/space.wav");
         this.gameOverSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/gameOver.wav");
         this.deleteSpaceCraftSound = new PlayerSoundSecond("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/sounds/spaceCraft.wav");
@@ -199,6 +210,9 @@ public class Space extends Sprite implements Boundable, Drawable{
                         new Thread(() -> {
                             ((PlayerSoundSecond)gameOverSound).start();
                         }).start();
+                        writer.writerScore(String.valueOf(score.getScore()));
+                        writer.exitWriter();
+                        principalSound = null;
                         return true;
                     }
                 }

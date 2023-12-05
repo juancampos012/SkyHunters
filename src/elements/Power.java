@@ -8,6 +8,7 @@ import models.Drawable;
  * Representa un poder en el juego, puede ser bueno o malo,
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public abstract class Power extends Sprite implements Runnable, Drawable {

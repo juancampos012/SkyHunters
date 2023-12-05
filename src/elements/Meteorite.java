@@ -11,6 +11,7 @@ import models.Drawable;
  * y al colisionar con el avion lo destruye.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class Meteorite extends Sprite implements Runnable {

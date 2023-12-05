@@ -6,6 +6,7 @@ import java.awt.Graphics;
  * Representa un poder "bueno" en el juego, el cual, al colisionar con el avión "bueno" le aumenta una vida.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class GoodPower extends Power {

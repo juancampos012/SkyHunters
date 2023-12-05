@@ -6,6 +6,7 @@ import java.awt.Graphics;
  * Representa un poder "malo" en el juego, el cual, al colisionar con el avión "bueno", le quita una vida.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class BadPower extends Power {

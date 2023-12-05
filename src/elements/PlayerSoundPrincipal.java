@@ -8,6 +8,7 @@ import javax.sound.sampled.LineUnavailableException;
  * Se utiliza para cargar y reproducir un sonido en un hilo de ejecución separado.
  *
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class PlayerSoundPrincipal extends PlayerSound implements Runnable{
@@ -45,7 +46,7 @@ public class PlayerSoundPrincipal extends PlayerSound implements Runnable{
                 try {
                     getClip().setFramePosition(0);
                     getClip().start();
-                    Thread.sleep(20000);
+                    Thread.sleep(21800);
                 } catch (InterruptedException ex) {
                     System.out.println("Error al pausar");
                 }

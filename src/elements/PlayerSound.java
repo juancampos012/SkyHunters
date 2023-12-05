@@ -12,6 +12,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * Maneja la reproducción de sonidos.
  *
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public abstract class PlayerSound{

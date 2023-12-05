@@ -8,6 +8,7 @@ import javax.sound.sampled.LineUnavailableException;
  * Se utiliza para cargar y reproducir un sonido.
  *
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class PlayerSoundSecond extends PlayerSound{

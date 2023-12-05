@@ -6,6 +6,7 @@ import java.awt.Graphics;
  * Representa una nave espacial enemiga en el juego, se mueve automaticamente al ser creada y tambien dispara automaticamnete.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public abstract class BadSpaceCraft extends SpaceCraft implements Runnable {

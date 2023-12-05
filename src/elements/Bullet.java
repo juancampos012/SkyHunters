@@ -7,6 +7,7 @@ import models.Drawable;
  * Representa una bala en el juego estas puden ser disparadas por los aviones e impactan contra los aviones tambien.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version  27112023
  */
 public abstract class Bullet extends Sprite implements Runnable, Drawable {

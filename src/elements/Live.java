@@ -8,6 +8,7 @@ import models.Drawable;
  * Representa las vidas de el avion "bueno" en el juego.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class Live extends Sprite implements Drawable {

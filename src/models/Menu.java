@@ -34,6 +34,7 @@ public class Menu extends javax.swing.JFrame implements Drawable{
     private void initComponents() {
 
         btnStart = new javax.swing.JButton();
+        btnScore = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         txtSky = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -59,6 +60,14 @@ public class Menu extends javax.swing.JFrame implements Drawable{
             }
         });
         getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 780, 300, 60));
+
+        btnScore.setText("Puntajes");
+        btnScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnScoreActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 250, 80));
 
         btnExit.setText("Salir");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +124,13 @@ public class Menu extends javax.swing.JFrame implements Drawable{
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void btnScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScoreActionPerformed
+        // TODO add your handling code here:
+        Score score = new Score();
+        score.setSize(900,900);
+        score.setVisible(true);
+    }//GEN-LAST:event_btnScoreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -152,6 +168,7 @@ public class Menu extends javax.swing.JFrame implements Drawable{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnScore;
     private javax.swing.JButton btnStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel txtSky;

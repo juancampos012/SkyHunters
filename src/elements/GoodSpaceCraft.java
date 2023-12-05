@@ -10,6 +10,7 @@ import models.Drawable;
  * disparo y manejo de vidas de la nave espacial del jugador.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class GoodSpaceCraft extends SpaceCraft implements Drawable {

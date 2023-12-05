@@ -8,6 +8,7 @@ import models.Drawable;
  * Representa una nave espacial en el juego, sirve como base para las naves espaciales utilizadas en el juego.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public abstract class SpaceCraft extends Sprite implements Drawable {

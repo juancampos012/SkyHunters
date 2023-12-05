@@ -13,34 +13,21 @@ import java.util.LinkedList;
  * cada carácter "-" indica una posición vacía y "*" indica la presencia de un obstáculo.
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
-public class ReaderPositions {
-    /**
-     * Ruta del archivo desde el cual se leerán los valores.
-     */
-    private String nameFile;
-    /**
-     * Objeto BufferedReader utilizado para leer el archivo.
-     */
-    private BufferedReader reader;
-
-    /**
-     * Número de líneas leídas del archivo.
-     */
-    private int numberLine;
-            
+public class ReaderPositions extends Reader{      
     /**
      * Constructor de la clase `LectorPosiciones`.
      * 
      * Inicializa la ruta del archivo y abre el lector del archivo para lectura.
      */
     public ReaderPositions() {
-        this.nameFile = "/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/file/obstaculos.txt";
+        setNameFile("/Users/juancamposbetancourth/NetBeansProjects/SkyHunters/src/file/obstaculos.txt");
         try {
-            reader = new BufferedReader(new FileReader(nameFile));
+            setReader(new BufferedReader(new FileReader(getNameFile())));
         } catch (FileNotFoundException e) {
-            System.err.println("Error: Archivo no encontrado - " + nameFile);
+            System.err.println("Error: Archivo no encontrado - " + getNameFile());
         }
     }
 
@@ -54,9 +41,9 @@ public class ReaderPositions {
         LinkedList<Integer> positions = new LinkedList<>();
         String[] aux;
         try {
-            String linea = reader.readLine();
+            String linea = getReader().readLine();
             if (linea != null) {
-                numberLine++;
+                setNumberLine(getNumberLine()+1);
                 aux = linea.split("");
                 for(String actual: aux){
                     if(actual.equals("-")){
@@ -68,32 +55,8 @@ public class ReaderPositions {
                 return positions;
             }
         } catch (IOException e) {
-            System.out.println("Error de lectura en el archivo - " + nameFile);
+            System.out.println("Error de lectura en el archivo - " + getNameFile());
         }
         return null;
-    }
-
-    /**
-     * Cierra el lector del archivo.
-     * 
-     * Este método debe llamarse cuando ya no se necesite leer del archivo.
-     */
-    public void closereader() {
-        try {
-            if (reader != null) {
-                reader.close();
-            }
-        } catch (IOException e) {
-            System.err.println("Error al cerrar el lector del archivo - " + nameFile);
-        }
-    }
-
-    /**
-     * Obtiene el número de líneas leídas del archivo.
-     * 
-     * @return El número de líneas leídas.
-     */
-    public int getNumberLine() {
-        return numberLine;
     }
 }

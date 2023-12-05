@@ -7,6 +7,7 @@ import java.awt.Image;
  * Representa una bala "mala" en el juego, pueden ser disparadas por aviones "malos" e impactan contra aviones "buenos".
  * 
  * @author juancamposbetancourth
+ * @author Sebastian Garcia
  * @version 27112023
  */
 public class BadBullet extends Bullet {
